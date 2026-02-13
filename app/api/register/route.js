@@ -2,18 +2,30 @@ import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 
 export async function POST(req) {
-  const body = await req.json();
+  try {
+    const body = await req.json();
+    console.log("BODY:", body);
 
-  const hashed = await bcrypt.hash(body.password, 10);
+    const hashed = await bcrypt.hash(body.password, 10);
 
-  const user = await prisma.user.create({
-    data: {
-      name: body.name,
-      email: body.email,
-      phone: body.phone,
-      password: hashed,
-    },
-  });
+    const user = await prisma.user.create({
+      data: {
+        name: body.name,
+        email: body.email,
+        phone: body.phone,
+        password: hashed,
+      },
+    });
 
-  return Response.json(user);
+    console.log("USER SAVED:", user);
+
+    return Response.json(user);
+  } catch (error) {
+    console.error("🔥 REGISTER ERROR:", error);
+
+    return new Response(
+      JSON.stringify({ error: error.message }),
+      { status: 500 }
+    );
+  }
 }
