@@ -5,12 +5,23 @@ export default function Register() {
     const [form, setForm] = useState({});
 
     const submit = async () => {
-        await fetch("/api/register", {
+        const res = await fetch("/api/register", {
             method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(form),
         });
+
+        const data = await res.json();
+        console.log("API response:", data);
+
+        if (!res.ok) {
+            alert("Error saving user");
+            return;
+        }
+
         alert("Registered!");
     };
+
 
     return (
         <div className="p-6 space-y-2 flex flex-col max-w-3xl mx-auto">
