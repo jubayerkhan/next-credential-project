@@ -25,7 +25,8 @@ export default function UsersPage() {
     fetchUsers();
   }, []);
 
-  const skeletonRows = users.length; // number of rows to show while loading
+  const skeletonRows = users.length || 5; // number of rows to show while loading
+//   console.log(skeletonRows);
 
   return (
     <div className="p-5">
