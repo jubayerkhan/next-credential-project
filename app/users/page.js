@@ -26,7 +26,6 @@ export default function UsersPage() {
   }, []);
 
   const skeletonRows = users.length || 5; // number of rows to show while loading
-//   console.log(skeletonRows);
 
   return (
     <div className="p-5">
