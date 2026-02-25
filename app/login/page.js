@@ -16,10 +16,20 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={login} className="p-6 space-y-2 flex flex-col max-w-3xl mx-auto">
+    <form
+      onSubmit={login}
+      className="p-6 space-y-2 flex flex-col max-w-3xl mx-auto"
+    >
       <input className="input_field" name="email" placeholder="Email" />
-      <input className="input_field" name="password" type="password" placeholder="Password" />
-      <button className="submit_btn" type="submit">Login</button>
+      <input
+        className="input_field"
+        name="password"
+        type="password"
+        placeholder="Password"
+      />
+      <button className="submit_btn" type="submit">
+        Login
+      </button>
     </form>
   );
 }

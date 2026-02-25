@@ -1,16 +1,28 @@
 import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function PUT(req) {
-  const body = await req.json();
+  try {
+    const session = await getServerSession(authOptions);
 
-  const user = await prisma.user.update({
-    where: { email: body.email },
-    data: {
-      name: body.name,
-      phone: body.phone,
-      password: body.password,
-    },
-  });
+    if (!session) {
+      return new Response("Unauthorized", { status: 401 });
+    }
 
-  return Response.json(user);
+    const body = await req.json();
+
+    const updatedUser = await prisma.user.update({
+      where: { email: session.user.email },
+      data: {
+        name: body.name,
+        phone: body.phone,
+      },
+    });
+
+    return Response.json(updatedUser);
+  } catch (error) {
+    console.error(error);
+    return new Response("Update failed", { status: 500 });
+  }
 }

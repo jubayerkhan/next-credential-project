@@ -11,19 +11,17 @@ export default async function Dashboard() {
 
   return (
     <div className="p-6 text-center container mx-auto flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4">Welcome, {session.user.name}!</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        Welcome, {session.user.name}!
+      </h1>
 
       <p>Email: {session.user.email}</p>
 
-      {/* <ProfileForm user={session.user} /> */}
+      <ProfileForm user={session.user} />
 
-      <Link href="/update" className="submit_btn mt-3">
-        UPDATE PROFILE
+      <Link href="/dashboard" className="submit_btn mt-3">
+        Dashboard
       </Link>
-
-      <div className="mt-4">
-        <LogoutButton />
-      </div>
     </div>
   );
 }
